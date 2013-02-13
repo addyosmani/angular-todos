@@ -37,16 +37,5 @@ function TodoCtrl($scope) {
         $scope.storeTodos();
     };
 
-
-
-    $scope.sortTodos = function () {
-        var sortedtodoList = $scope.todos.sort( function(a, b) {
-            return a.text - b.text;
-        })
-        console.log(sortedtodoList)
-    }
-
-
-}
-
+};
 
