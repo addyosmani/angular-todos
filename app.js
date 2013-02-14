@@ -1,3 +1,5 @@
+angular.module('todo', ['ui']);
+
 var DEFAULT_TODOS = [
     {text:'Watch example videos', done:false},
     {text:'AngularJS Tutorial', done:false},
@@ -13,6 +15,7 @@ function TodoCtrl($scope) {
     var todos = localStorage[TODO_KEY];
     todos = todos ? JSON.parse(todos) : DEFAULT_TODOS;
     $scope.todos = todos;
+    $scope.date = new Date();
 
     $scope.storeTodos = function () {
         // Store updated todo list locally
@@ -37,5 +40,12 @@ function TodoCtrl($scope) {
         $scope.storeTodos();
     };
 
+    $scope.keypressCallback = function($event) {
+        console.log('foo');
+    }
+
 };
 
+
+
+// angular.bootstrap(document, ['todo']);

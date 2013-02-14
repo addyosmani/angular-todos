@@ -1,10 +1,9 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="todo">
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
-    <!--<script src="https://raw.github.com/angular-ui/angular-ui/master/build/angular-ui.min.js"></script>-->
+    
     <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-    <script src="app.js"></script>
+    
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="app.css" />
@@ -12,7 +11,13 @@
 <body>
 <div ng-controller="TodoCtrl">
     <h2>Total todos: {{getTotalTodos()}}</h2>
-    <ul class="unstyled">
+    
+    <textarea ui-keypress="{13:'keypressCallback($event)'}">
+    </textarea>
+
+    <input ng-model="date" ui-date>
+
+    <ul ui-sortable ng-model="todos" class="unstyled">
         <li ng-repeat="todo in todos | orderBy:predicate:reverse">
             <input type="checkbox" ng-model="todo.done">
             <span class="done-{{todo.done}}">{{todo.text}}</span>
@@ -29,5 +34,19 @@
 
     <button class="btn-large" ng-click="clearCompleted()"><i class="icon-trash"></i>Clear Completed</button>
 </div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="http://angular-ui.github.com/angular-ui/build/angular-ui.css" />
+<script src="http://code.angularjs.org/1.0.1/angular-1.0.1.min.js"></script>
+<script src="http://angular-ui.github.com/angular-ui/build/angular-ui.js"></script>
+
+
+
+
+<script src="app.js"></script>
+
 </body>
 </html>
