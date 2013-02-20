@@ -21,3 +21,40 @@ section {
 .right {
 	float: right;
 }
+.dotted {
+	border-bottom: 1px dashed grey;
+}
+
+#categories ul li p {
+	overflow: auto;
+}
+
+.hidden {
+	display:none;
+}
+
+.icon-remove {
+	margin-right: 50px;
+}
+
+.title {
+	position: relative;
+	z-index: 1;
+}
+.title:hover span {
+	display: block;
+	border: 2px solid #fff;
+	padding: 20px;
+	position: absolute;
+	top: 0;
+	left: 0px;
+	background: #00BFFF;
+	z-index: 2;
+	border-radius: 10px;
+	color: #fff;
+}
+
+p {
+	margin: 0 !important;
+}
+
