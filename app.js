@@ -1,9 +1,7 @@
 angular.module('todo', ['ui']);
 
 var DEFAULT_TODOS = [
-    {text:'Watch example videos', done:false},
-    {text:'AngularJS Tutorial', done:false},
-    {text:'Read AngularJS Documentation', done:false},
+    {category: 'Tasks', title:'Start organizing your life!', date:'', note:'', done:false},
 ];
 var TODO_KEY = 'todos_';
 
@@ -15,37 +13,42 @@ function TodoCtrl($scope) {
     var todos = localStorage[TODO_KEY];
     todos = todos ? JSON.parse(todos) : DEFAULT_TODOS;
     $scope.todos = todos;
-    $scope.date = new Date();
 
-    $scope.storeTodos = function () {
-        // Store updated todo list locally
-        localStorage[TODO_KEY] = JSON.stringify($scope.todos);
-    };
+    $scope.formDate = $('#date').datepicker('getDate');
+ 
 
     $scope.getTotalTodos = function () {
         return $scope.todos.length;
     };
 
-    $scope.clearCompleted = function () {
-        $scope.todos = _.filter($scope.todos, function(todo){
-            return !todo.done;
-        });
-        $scope.storeTodos();
+    $scope.storeTodos = function () {
+      // Store updated todo list locally
+      localStorage[TODO_KEY] = JSON.stringify($scope.todos);
     };
+
 
     $scope.addTodo = function () {
         // Add item to todo list
-        $scope.todos.push({text:$scope.formTodoText, done:false});
+        $scope.todos.push({category:$scope.formCategoryText,title:$scope.formTodoText,date:$scope.formDate, note:$scope.formNoteText, done:false});
+        $scope.formCategoryText = '';
         $scope.formTodoText = '';
+        $scope.formNoteText = '';
+        $scope.formDate = '';
         $scope.storeTodos();
     };
 
-    $scope.keypressCallback = function($event) {
-        console.log('foo');
-    }
+    $scope.clearCompleted = function () {
+      $scope.todos = _.filter($scope.todos, function(todo){
+        return !todo.done;
+      });
+      $scope.storeTodos();
+    };
 
 };
 
 
 
-// angular.bootstrap(document, ['todo']);
+
+
+
+

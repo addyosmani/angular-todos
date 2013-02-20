@@ -1,39 +1,76 @@
 <!doctype html>
 <html ng-app="todo">
 <head>
-    
-    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-    
-
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="app.css" />
-</head> 
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+  <link rel="stylesheet" href="app.css" />
+</head>
 <body>
-<div ng-controller="TodoCtrl">
-    <h2>Total todos: {{getTotalTodos()}}</h2>
-    
-    <textarea ui-keypress="{13:'keypressCallback($event)'}">
-    </textarea>
-
-    <input ng-model="date" ui-date>
-
-    <ul ui-sortable ng-model="todos" class="unstyled">
-        <li ng-repeat="todo in todos | orderBy:predicate:reverse">
-            <input type="checkbox" ng-model="todo.done">
-            <span class="done-{{todo.done}}">{{todo.text}}</span>
-        </li>
-    </ul>
+<div id="wrap" ng-controller="TodoCtrl">
+  <h1>DYANAMIC LIST</h1>
+  <div class="inner-wrap" id="categories">
+    <h2>Categories</h2>
     <form class="form-horizontal">
-        <input type="text" ng-model="formTodoText" ng-model-instant>
-        <button class="btn" ng-click="addTodo()"><i class="icon-plus"></i>Add</button>
-        <br />
-        <br />
-        <button class="btn" ng-click="predicate='text'"><i class="icon-plus"></i>Sort by Title</button>
-        <button class="btn" ng-click="predicate='done'"><i class="icon-plus"></i>Sort by Completed</button>
+      <input type="text" ng-model="formCategoryText" ng-model-instant>
+      <button class="btn" ng-click="addTodo()"><i class="icon-plus"></i>Add</button>
     </form>
+    <hr />
+    <ul ui-sortable ng-model="todos">
+      <li ng-repeat="todo in todos | orderBy:predicate:reverse">
+        <a ng-click="showTodo()">{{todo.category}}</a>
+      </li>
+    </ul>
+  </div><!--#category-->
+  <div class="inner-wrap"  id="list">
+    <h2>Add A Task</h2>
+    <hr />
+    <form class="form-horizontal">
+      <section>
+        <label>Select A Category:</label>
+        <select>
+          <option ng-repeat="todo in todos | orderBy:predicate:reverse">
+            {{todo.category}}
+          </option>
+        </select>
+      </section>
+      <section>
+        <label>Title:</label>
+        <input type="text" ng-model="formTodoText" ng-model-instant>
+      </section>
+      <section>
+        <label>Due on:</label>
+        <input id="date"type="text" ng-model="formDate" ui-date ui-date-format="m/dd/y">
 
-    <button class="btn-large" ng-click="clearCompleted()"><i class="icon-trash"></i>Clear Completed</button>
-</div>
+      </section>
+      <section>
+        <label>Note:</label>
+        <textarea ng-model="formNoteText"></textarea>
+      </section>
+      <button class="btn right" ng-click="addTodo()"><i class="icon-plus"></i>  Add</button>
+    </form>
+  </div><!--#list-->
+  <div class="inner-wrap" id="list">
+    <h2>Task List</h2>
+    <hr />
+    <table cellpadding="5px" cellspacing="0">
+      <tr>
+        <td><input type="checkbox" name="select-all" id="select-all" /></td>
+        <td><i class="icon-arrow-down"></i><a ng-click="predicate='title'">  Title</span></td>
+        <td><i class="icon-arrow-down"></i><a ng-click="predicate='date'">  Due Date</span></td>
+      </tr>
+      <tr ui-sortable ng-model="todos" ng-repeat="todo in todos | orderBy:predicate">
+        <td><input type="checkbox" ng-model="todo.done"></td>
+        <td><span class="done-{{todo.done}}" ng-click="">{{todo.title}}</span></td>
+        <td><span class="done-{{todo.done}}">{{todo.date}}</span></td>
+      </tr>
+    </table>
+  </div><!--#list-->
+  <div class="inner-wrap" id="options">
+    <h2>Preferences</h2>
+    <hr />
+    <a ng-click="clearCompleted()"><i class="icon-trash"></i>  Clear Completed</a>
+  </div>
+</div><!--/wrap-->
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -43,10 +80,8 @@
 <script src="http://code.angularjs.org/1.0.1/angular-1.0.1.min.js"></script>
 <script src="http://angular-ui.github.com/angular-ui/build/angular-ui.js"></script>
 
-
-
-
 <script src="app.js"></script>
+<script src="ui.js"></script>
 
 </body>
 </html>
